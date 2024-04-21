@@ -28,5 +28,5 @@ class TestOrderPage:
         value.open_page(Urls.URL)
         value.set_yandex_page()
         time.sleep(3)
-        driver.switch_to == 'https://dzen.ru/?yredirect=true'
+        assert driver.current_url == 'https://dzen.ru/?yredirect=true'
 

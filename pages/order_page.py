@@ -65,4 +65,5 @@ class OrderPage(BasePage):
     @allure.step('Нажимаем на логотип Яндекса')
     def set_yandex_page(self):
         self.driver.find_element(*self.YANDEX_LOGO).click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
 

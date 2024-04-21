@@ -1,0 +1,68 @@
+from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
+from selenium.webdriver.common.keys import Keys
+import allure
+class OrderPage(BasePage):
+    BUTTON_ORDER = (By.CLASS_NAME, 'Button_Button__ra12g')
+    NAME_FIELD = (By.XPATH, ".//input[@placeholder='* Имя']")
+    SURNAME_FIELD = (By.XPATH, ".//input[@placeholder='* Фамилия']")
+    ADDRESS = (By.XPATH, ".//input[@placeholder='* Адрес: куда привезти заказ']")
+    STATION = (By.XPATH, ".//input[@placeholder='* Станция метро']")
+    NUMBER = (By.XPATH, ".//input[@placeholder='* Телефон: на него позвонит курьер']")
+    COOKIE = (By.XPATH, ".//button[text()='да все привыкли']")
+    NEXT_PAGE_BUTTON = (By.XPATH, ".//button[text()='Далее']")
+    DATE = (By.XPATH, ".//input[@placeholder='* Когда привезти самокат']")
+    RENT_DURATION = (By.XPATH, ".//*[@class='Dropdown-arrow']")
+    DROPDOWN_CHOICE = (By.XPATH, "(//div[@class='Dropdown-option'])[1]")
+    BLACK_COLOUR = (By.XPATH, ".//input[@id='black']")
+    COMMENT = (By.XPATH, ".//input[@placeholder='Комментарий для курьера']")
+    FINAL_ORDER_BUTTON = (By.XPATH, ".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']")
+    BUTTON_YES = (By.XPATH, ".//button[text()='Да']")
+    Success_text = 'Заказ оформлен'
+    HEADER = (By.CLASS_NAME, 'Header_LogoScooter__3lsAR')
+    PAGE_TEXT = (By.CLASS_NAME, 'Home_SubHeader__zwi_E')
+    YANDEX_LOGO = (By.CLASS_NAME, 'Header_LogoYandex__3TSOI')
+
+    @allure.title('Проверка заполненияполей и текста успешного заказа')
+    @allure.step('Соглашаемся с использованием куки')
+    @allure.step('Нажимаем на кнопку заказать')
+    @allure.step('Заполняем имя')
+    @allure.step('Заполняем фамилию')
+    @allure.step('Заполняем адрес')
+    @allure.step('Выбираем станцию метро')
+    @allure.step('Указываем номер телефона')
+    @allure.step('Нажимаем на кнопку "далее"')
+    @allure.step('Выбираем дату')
+    @allure.step('Выбираем продолжительность аренды')
+    @allure.step('Выбираем цвет самоката')
+    @allure.step('Пишем комментарий')
+    @allure.step('Нажимаем на кнопку "Заказать"')
+    @allure.step('Нажимаем на кнопку "Да"')
+    def set_value(self, name, surname, address, metro, number, date, comment):
+        self.driver.find_element(*self.COOKIE).click()
+        self.driver.find_element(*self.BUTTON_ORDER).click()
+        self.driver.find_element(*self.NAME_FIELD).send_keys(name)
+        self.driver.find_element(*self.SURNAME_FIELD).send_keys(surname)
+        self.driver.find_element(*self.ADDRESS).send_keys(address)
+        self.driver.find_element(*self.STATION).send_keys(metro, Keys.DOWN, Keys.ENTER)
+        self.driver.find_element(*self.NUMBER).send_keys(number)
+        self.driver.find_element(*self.NEXT_PAGE_BUTTON).click()
+        self.driver.find_element(*self.DATE).send_keys(date, Keys.ENTER)
+        self.driver.find_element(*self.RENT_DURATION).click()
+        self.driver.find_element(*self.DROPDOWN_CHOICE).click()
+        self.driver.find_element(*self.BLACK_COLOUR).click()
+        self.driver.find_element(*self.COMMENT).send_keys(comment)
+        self.driver.find_element(*self.FINAL_ORDER_BUTTON).click()
+        self.driver.find_element(*self.BUTTON_YES).click()
+
+    @allure.title('Проверка перехода на главную страницу при клике на логотиа "Самоката"')
+    @allure.step('Переходим на страницу заказа')
+    @allure.step('Нажимаем на лого самоката')
+    def set_main_page(self):
+        self.driver.find_element(*self.BUTTON_ORDER).click()
+        self.driver.find_element(*self.HEADER).click()
+    @allure.title('Переход на страницу Дзена')
+    @allure.step('Нажимаем на логотип Яндекса')
+    def set_yandex_page(self):
+        self.driver.find_element(*self.YANDEX_LOGO).click()
+

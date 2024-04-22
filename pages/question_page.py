@@ -1,9 +1,7 @@
-import time
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
 import allure
+
 
 class QuestionPage(BasePage):
     FIRST_QUESTION = (By.ID, 'accordion__heading-0')
@@ -23,52 +21,25 @@ class QuestionPage(BasePage):
     EIGHTH_QUESTION = (By.ID, 'accordion__heading-7')
     eighth_question_text = 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
 
-    @allure.title('Проверка текста первого вопроса')
-    def check_first_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.FIRST_QUESTION))
-        self.wait_and_find(self.FIRST_QUESTION)
-        self.driver.find_element(*self.FIRST_QUESTION).click()
+    QUESTIONS_AND_ANSWERS = [
+        [FIRST_QUESTION, first_question_text],
+        [SECOND_QUESTION, second_question_text],
+        [THIRD_QUESTION, third_question_text],
+        [FOURTH_QUESTION, fourth_question_text],
+        [FIFTH_QUESTION, fifth_question_text],
+        [SIXTH_QUESTION, sixth_question_text],
+        [SEVENTH_QUESTION, seventh_question_text],
+        [EIGHTH_QUESTION, eighth_question_text]
 
-    @allure.title('Проверка текста второго вопроса')
-    def check_second_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.SECOND_QUESTION))
-        self.wait_and_find(self.SECOND_QUESTION)
-        self.driver.find_element(*self.SECOND_QUESTION).click()
+    ]
 
-    @allure.title('Проверка текста третьего вопроса')
-    def check_third_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.THIRD_QUESTION))
-        self.wait_and_find(self.THIRD_QUESTION)
-        self.driver.find_element(*self.THIRD_QUESTION).click()
 
-    @allure.title('Проверка текста четвертого вопроса')
-    def check_fourth_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.FOURTH_QUESTION))
-        self.wait_and_find(self.FOURTH_QUESTION)
-        self.driver.find_element(*self.FOURTH_QUESTION).click()
+    @allure.step('Нажать на вопрос и проверить текст')
+    def check_question_text(self, question, answer):
+        self.find_question(question, answer)
 
-    @allure.title('Проверка текста пятого вопроса')
-    def check_fifth_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.FIFTH_QUESTION))
-        self.wait_and_find(self.FIFTH_QUESTION)
-        self.driver.find_element(*self.FIFTH_QUESTION).click()
 
-    @allure.title('Проверка текста шестого вопроса')
-    def check_sixth_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.SIXTH_QUESTION))
-        self.wait_and_find(self.SIXTH_QUESTION)
-        self.driver.find_element(*self.SIXTH_QUESTION).click()
 
-    @allure.title('Проверка текста седьмого вопроса')
-    def check_seventh_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.SEVENTH_QUESTION))
-        self.wait_and_find(self.SEVENTH_QUESTION)
-        self.driver.find_element(*self.SEVENTH_QUESTION).click()
 
-    @allure.title('Проверка текста восьмого вопроса')
-    def check_eighth_question_text(self):
-        self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self.EIGHTH_QUESTION))
-        self.wait_and_find(self.EIGHTH_QUESTION)
-        self.driver.find_element(*self.EIGHTH_QUESTION).click()
 
 
